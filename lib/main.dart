@@ -45,6 +45,8 @@ class MyHomePageState extends State<MyHomePage> {
   int yourLives = maxLives;
   int enemysLives = maxLives;
 
+  String textInfo = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,13 +58,17 @@ class MyHomePageState extends State<MyHomePage> {
                 maxLivesCount: maxLives,
                 yourLivesCount: yourLives,
                 enemysLivesCount: enemysLives),
-            const Expanded(
+            Expanded(
                 child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
               child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
-                child: ColoredBox(color: Color.fromRGBO(197, 209, 234, 1)),
+                child: ColoredBox(
+                    color: const Color.fromRGBO(197, 209, 234, 1),
+                    child: Center(
+                      child: Text(textInfo),
+                    )),
               ),
             )),
             ControlsWidget(
@@ -115,6 +121,7 @@ class MyHomePageState extends State<MyHomePage> {
       setState(() {
         yourLives = maxLives;
         enemysLives = maxLives;
+        textInfo = '';
       });
     } else if (_checkActiveButton()) {
       setState(() {
@@ -127,6 +134,7 @@ class MyHomePageState extends State<MyHomePage> {
           yourLives -= 1;
         }
 
+        _getTextInfo();
         whatEnemyAtttacks = BodyPart.random();
         whatEnemyDefends = BodyPart.random();
 
@@ -144,6 +152,46 @@ class MyHomePageState extends State<MyHomePage> {
     } else {
       return FightClubColors.blackButton;
     }
+  }
+
+  _getTextInfo() {
+    String text = '';
+
+    if (yourLives == 0 && enemysLives == 0 && _checkActiveButton()) {
+      text = 'Draw';
+    }
+
+    if (yourLives == 0 && enemysLives != 0 && _checkActiveButton()) {
+      text = 'You lost';
+    }
+    if (yourLives != 0 && enemysLives == 0 && _checkActiveButton()) {
+      text = 'You won';
+    }
+
+    if (yourLives != 0 && enemysLives != 0) {
+      if (attackingBodyPart == whatEnemyDefends) {
+        text = 'Your attack was blocked.';
+      }
+      if (attackingBodyPart != whatEnemyDefends) {
+        text = 'You hit enemy’s ' +
+            attackingBodyPart.toString().toLowerCase() +
+            '.';
+      }
+
+      if (whatEnemyAtttacks == defendingBodyPart) {
+        text += '\nEnemy’s attack was blocked.';
+      }
+
+      if (whatEnemyAtttacks != defendingBodyPart) {
+        text += '\nEnemy hit your ' +
+            whatEnemyAtttacks.toString().toLowerCase() +
+            '.';
+      }
+    }
+
+    setState(() {
+      textInfo = text;
+    });
   }
 }
 
@@ -319,7 +367,7 @@ class ControlsWidget extends StatelessWidget {
             child: Column(
           children: [
             Text("Defend".toUpperCase(),
-                style: TextStyle(color: FightClubColors.darkGreyText)),
+                style: const TextStyle(color: FightClubColors.darkGreyText)),
             const SizedBox(
               height: 13,
             ),
@@ -348,7 +396,7 @@ class ControlsWidget extends StatelessWidget {
             child: Column(
           children: [
             Text('Attack'.toUpperCase(),
-                style: TextStyle(color: FightClubColors.darkGreyText)),
+                style: const TextStyle(color: FightClubColors.darkGreyText)),
             const SizedBox(
               height: 13,
             ),
@@ -426,7 +474,8 @@ class BodyPart {
 
   @override
   String toString() {
-    return 'BodyPart{name: $name}';
+    // return 'BodyPart{name: $name}';
+    return name;
   }
 
   static const List<BodyPart> _values = [head, torso, legs];
