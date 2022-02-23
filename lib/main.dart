@@ -69,8 +69,7 @@ class MyHomePageState extends State<MyHomePage> {
                       child: Text(centerText,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                              color: FightClubColors.darkGreyText,
-                              fontSize: 10)),
+                              color: FightClubColors.darkGreyText)),
                     )),
               ),
             )),
@@ -460,8 +459,7 @@ class BodyPart {
 
   @override
   String toString() {
-    // return 'BodyPart{name: $name}';
-    return name;
+    return 'BodyPart{name: $name}';
   }
 
   static const List<BodyPart> _values = [head, torso, legs];
