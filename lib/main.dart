@@ -63,11 +63,11 @@ class MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
               child: SizedBox(
                 width: double.infinity,
-                height: double.infinity,
                 child: ColoredBox(
                     color: const Color.fromRGBO(197, 209, 234, 1),
                     child: Center(
                       child: Text(centerText,
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                               color: FightClubColors.darkGreyText,
                               fontSize: 10)),
@@ -148,7 +148,7 @@ class MyHomePageState extends State<MyHomePage> {
               ? "You hit enemy's ${attackingBodyPart!.name.toLowerCase()}."
               : "Your attack was blocked.";
           String second = youLoseLife
-              ? "Enemy hit your ${attackingBodyPart!.name.toLowerCase()}."
+              ? "Enemy hit your ${whatEnemyAttacks!.name.toLowerCase()}."
               : "Enemy's attack was blocked.";
 
           centerText = "$first\n$second";
