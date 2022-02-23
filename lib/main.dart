@@ -447,16 +447,23 @@ class LivesWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: List.generate(overallLivesCount, (index) {
         if (index < currentLivesCount) {
-          return Image.asset(
-            FightClubIcons.heartFull,
-            width: 18,
-            height: 18,
-          );
+          return Padding(
+              padding: EdgeInsets.only(
+                  bottom: index < overallLivesCount - 1 ? 4 : 0),
+              child: Image.asset(
+                FightClubIcons.heartFull,
+                width: 18,
+                height: 18,
+              ));
         } else {
-          return Image.asset(
-            FightClubIcons.heartEmpty,
-            width: 18,
-            height: 18,
+          return Padding(
+            padding:
+                EdgeInsets.only(bottom: index < overallLivesCount - 1 ? 4 : 0),
+            child: Image.asset(
+              FightClubIcons.heartEmpty,
+              width: 18,
+              height: 18,
+            ),
           );
         }
       }),
