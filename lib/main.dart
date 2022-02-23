@@ -39,7 +39,7 @@ class MyHomePageState extends State<MyHomePage> {
   BodyPart? defendingBodyPart;
   BodyPart? attackingBodyPart;
 
-  BodyPart? whatEnemyAtttacks = BodyPart.random();
+  BodyPart? whatEnemyAttacks = BodyPart.random();
   BodyPart? whatEnemyDefends = BodyPart.random();
 
   int yourLives = maxLives;
@@ -129,7 +129,7 @@ class MyHomePageState extends State<MyHomePage> {
     } else if (_checkActiveButton()) {
       setState(() {
         final bool enemyLoseLife = attackingBodyPart != whatEnemyDefends;
-        final bool youLoseLife = defendingBodyPart != whatEnemyAtttacks;
+        final bool youLoseLife = defendingBodyPart != whatEnemyAttacks;
         if (enemyLoseLife) {
           enemysLives -= 1;
         }
@@ -154,7 +154,7 @@ class MyHomePageState extends State<MyHomePage> {
           centerText = "$first\n$second";
         }
 
-        whatEnemyAtttacks = BodyPart.random();
+        whatEnemyAttacks = BodyPart.random();
         whatEnemyDefends = BodyPart.random();
 
         attackingBodyPart = null;
